@@ -1,4 +1,6 @@
 import pyodbc
+from Utils import *
+
 # Some other example server values are
 # server = 'localhost\sqlexpress' # for a named instance
 # server = 'myserver,port' # to specify an alternate port
@@ -6,14 +8,13 @@ server = 'quasar'
 database = 'ChocolateBiscuitFactoryIMS'
 username = 'sa'
 password = 'Cse-3055'
-cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
+cnxn = pyodbc.connect(
+    'DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
 
 cursor = cnxn.cursor()
 
-
-cursor.execute("SELECT TOP (1000) [Salary] ,[Department] ,[Date_Employed] ,[Worker_ID] ,[Working_Machine] FROM [ChocolateBiscuitFactoryIMS].[dbo].[Worker]")
-
-row = cursor.fetchone()
-while row:
-    print(row[0])
-    row = cursor.fetchone()
+cursor.execute('select * from ChocolateBiscuitFactoryIMS.dbo.Worker')
+worker = create_copy(cursor)
+cursor.execute("select * from ChocolateBiscuitFactoryIMS.dbo.Person")
+person = create_copy(cursor)
+set_workers(workers=worker, person=person)

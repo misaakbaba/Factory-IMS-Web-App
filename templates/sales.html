@@ -42,51 +42,33 @@
             <li class="nav-item">
                 <a class="nav-link" href="/sales_shipping">Shipping</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/sales_addorderline">Add Sales</a>
+            </li>
         </ul>
     </div>
 </nav>
 
 <div class="container" style="margin-top:30px">
     <div class="row">
-        <div class="col-sm-4">
-            <h2>About Me</h2>
-            <h5>Photo of me:</h5>
-            <div class="fakeimg">Fake Image</div>
-            <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-            <h3>Some Links</h3>
-            <p>Lorem ipsum dolor sit ame.</p>
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-            <hr class="d-sm-none">
-        </div>
-        <div class="col-sm-8">
-            <h2>TITLE HEADING</h2>
-            <h5>Title description, Dec 7, 2017</h5>
-            <div class="fakeimg">Fake Image</div>
-            <p>Some text..</p>
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco.</p>
-            <br>
-            <h2>TITLE HEADING</h2>
-            <h5>Title description, Sep 2, 2017</h5>
-            <div class="fakeimg">Fake Image</div>
-            <p>Some text..</p>
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco.</p>
+        <div class="row">
+            <div id="table">
+                <table class="table table-striped">
+                    <thead>
+                    <tr id="rows">
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Product ID</th>
+                        <th scope="col">Product Type</th>
+                        <th scope="col">Ordered Quantity</th>
+                        <th scope="col">Order Price</th>
+                        <th scope="col">Customer ID</th>
+                        <th scope="col">Shipping ID</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -100,6 +82,22 @@
 </title>
 </head>
 <body>
-
+<script>
+    var sales_list ={{ sales_table|tojson }};
+    for (var i = 0; i < sales_list.length; i++) {
+        (function f() {
+            var tr = "<tr>\n" +
+                "      <th scope=\"row\">" + sales_list[i][0] + "</th>\n" +
+                "      <td>" + sales_list[i][1] + "</td>\n" +
+                "      <td>" + sales_list[i][2] + "</td>\n" +
+                "      <td>" + sales_list[i][3] + "</td>\n" +
+                "      <td>" + sales_list[i][4] + "</td>\n" +
+                "      <td>" + sales_list[i][5] + "</td>\n" +
+                "      <td>" + sales_list[i][6] + "</td>\n" +
+                "    </tr>";
+            $('#table tbody').append(tr);
+        }());
+    }
+</script>
 </body>
 </html>
